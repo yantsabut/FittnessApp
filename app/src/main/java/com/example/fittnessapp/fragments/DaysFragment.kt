@@ -20,7 +20,7 @@ import com.example.fittnessapp.utils.MainViewModel
 
 class DaysFragment : Fragment(), DaysAdapter.Listener {
     private lateinit var binding: FragmentDaysBinding
-    private var model: MainViewModel by activityViewModels()
+    private val model: MainViewModel by activityViewModels()
 
 
     override fun onCreateView(

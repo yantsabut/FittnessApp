@@ -3,6 +3,7 @@
     <string name="slogan">На пути к совершенству!</string>
     <string name="day">День:</string>
     <string name="exercise">Упражнения</string>
-
-
+    <string name="Waiting_message">Упражнения начнуться через:</string>
+    <string name="start">Начать</string>
+    <string name="next">Следующее</string>
 </resources>
