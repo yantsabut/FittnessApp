@@ -20,6 +20,7 @@ class Exercisedapter(): ListAdapter <ExercisesModel,Exercisedapter.ExerciseHolde
             tvName.text = exercise.name
             tvCount.text = exercise.time
             imEx.setImageDrawable(GifDrawable(root.context.assets, exercise.image))
+            chb.isChecked = exercise.isDone
 
         }
     }

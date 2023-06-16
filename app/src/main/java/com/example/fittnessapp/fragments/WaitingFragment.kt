@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fittnessapp.R
 import com.example.fittnessapp.databinding.WaitiingFragmentBinding
 import com.example.fittnessapp.utils.FragmentManager
 import com.example.fittnessapp.utils.TimesUtils
@@ -15,22 +16,24 @@ import com.example.fittnessapp.utils.TimesUtils
 const val COUNT_DOWN_TIME = 11000L
 
 class WaitingFragment : Fragment() {
-private lateinit var binding: WaitiingFragmentBinding
-private lateinit var timer: CountDownTimer
-
+    private lateinit var binding: WaitiingFragmentBinding
+    private lateinit var timer: CountDownTimer
+    private var ab: ActionBar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = WaitiingFragmentBinding.inflate(inflater,  container, false)
+        binding = WaitiingFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         binding.pBar.max = COUNT_DOWN_TIME.toInt()
+        ab = (activity as AppCompatActivity).supportActionBar
+        ab?.title = getString(R.string.waiting)
+        binding.pBar.max = COUNT_DOWN_TIME.toInt()
         starTimer()
     }
 
@@ -39,11 +42,14 @@ private lateinit var timer: CountDownTimer
 
             override fun onTick(restTime: Long) {
                 tvTimer.text = TimesUtils.getTime(restTime)
-        pBar.progress = restTime.toInt()
+                pBar.progress = restTime.toInt()
             }
 
             override fun onFinish() {
-                FragmentManager.setFragment(ExerciseFragment.newInstance(), activity as AppCompatActivity)
+                FragmentManager.setFragment(
+                    ExerciseFragment.newInstance(),
+                    activity as AppCompatActivity
+                )
 
             }
 
@@ -59,5 +65,5 @@ private lateinit var timer: CountDownTimer
 
         @JvmStatic
         fun newInstance() = WaitingFragment()
-            }
     }
+}

@@ -9,19 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fittnessapp.R
 import com.example.fittnessapp.databinding.DayListItemBinding
 
-class DaysAdapter(var listener: Listener): ListAdapter <DayModel,DaysAdapter.DaysHolder> (MyComparator()) {
+class DaysAdapter(var listener: Listener) :
+    ListAdapter<DayModel, DaysAdapter.DaysHolder>(MyComparator()) {
 
     class DaysHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = DayListItemBinding.bind(view)
 
-        fun setData(day: DayModel,listener: Listener ) = with(binding) {
+        fun setData(day: DayModel, listener: Listener) = with(binding) {
             val name = root.context.getString(R.string.day) + " ${adapterPosition + 1}"
             tvName.text = name
             val exCounter = day.exercises.split(",")
                 .size.toString() + " " + root.context.getString(R.string.exercise)
             exirciseCounter.text = exCounter
-            itemView.setOnClickListener { listener.onClick(day)  }
+            checkBox2.isChecked = day.isDone
+            itemView.setOnClickListener { listener.onClick(day.copy(dayNumber = adapterPosition + 1)) }
         }
     }
 
@@ -47,7 +49,8 @@ class DaysAdapter(var listener: Listener): ListAdapter <DayModel,DaysAdapter.Day
 
         }
     }
-    interface Listener{
+
+    interface Listener {
         fun onClick(day: DayModel)
     }
 }
